@@ -25,6 +25,12 @@ public class PizzaDB
         return _pizzas;
     }
 
+    //gets a particular pizza based on it's id
+    public static Pizza? GetPizza(int id)
+    {
+        return _pizzas.SingleOrDefault(pizza => pizza.Id == id);
+    }
+
     //create a pizza and append to list
     public static Pizza CreatePizza(Pizza pizza)
     {
