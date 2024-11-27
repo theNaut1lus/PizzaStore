@@ -5,11 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//using SQLite for persistent database
+var connectionString = builder.Configuration.GetConnectionString("Pizzas") ?? "Data Source=Pizzas.db";
+
 builder.Services.AddEndpointsApiExplorer();
+
+//using in memory database
+/*builder.Services.AddDbContext<PizzaDb>(options =>
+{
+    options.UseInMemoryDatabase("items");
+});*/
 
 builder.Services.AddDbContext<PizzaDb>(options =>
 {
-    options.UseInMemoryDatabase("items");
+    options.UseSqlite(connectionString);
 });
 
 builder.Services.AddSwaggerGen(options =>
